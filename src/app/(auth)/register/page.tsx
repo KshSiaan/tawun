@@ -27,7 +27,7 @@ function RegisterContent() {
       </main>
     );
   } else if (!user) {
-    return redirect("/register?type=user");
+    return redirect(`/register?type=${user}`);
   } else {
     return redirect("/");
   }

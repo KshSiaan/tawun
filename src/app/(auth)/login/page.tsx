@@ -25,7 +25,7 @@ function LoginContent() {
       </main>
     );
   } else if (!user) {
-    return redirect("/login?type=user");
+    return redirect(`/login?type=${user}`);
   } else {
     return redirect("/");
   }

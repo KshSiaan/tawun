@@ -14,28 +14,25 @@ type iconLink = {
 };
 
 const categories: LinkItem[] = [
-  { name: "Everyday essentials", href: "/categories" },
-  { name: "Household", href: "/categories/household" },
-  { name: "Professional", href: "/categories" },
-  { name: "Education", href: "/categories/n" },
-  { name: "Creative", href: "/categoriesy/creative" },
-  {
-    name: "Information technology",
-    href: "/categories/information-technology",
-  },
-  { name: "Specialized", href: "/categories/specialized" },
-  { name: "Commercial", href: "/categories/commercial" },
+  { name: "Everyday essentials", href: "/category/everyday-essentials" },
+  { name: "Household", href: "/category/household" },
+  { name: "Professional", href: "/category/professional" },
+  { name: "Education", href: "/category/education" },
+  { name: "Creative", href: "/category/creative" },
+  { name: "Information technology", href: "/category/information-technology" },
+  { name: "Specialized", href: "/category/specialized" },
+  { name: "Commercial", href: "/category/commercial" },
 ];
 
 const companyLinks: LinkItem[] = [
-  { name: "About Tawun", href: "/about" },
+  { name: "About Tawun", href: "/about-tawun" },
   { name: "Help & support", href: "/help-support" },
-  { name: "Terms of service", href: "/tnc" },
+  { name: "Terms of service", href: "/terms-of-service" },
   { name: "Privacy policy", href: "/privacy-policy" },
-  { name: "Careers", href: "/career" },
-  { name: "Investors section", href: "/investors" },
-  { name: "Charity & Donations", href: "/charity" },
-  { name: "Community Forum", href: "/forum" },
+  { name: "Careers", href: "/careers" },
+  { name: "Investors section", href: "/investors-section" },
+  { name: "Charity & Donations", href: "/charity-donations" },
+  { name: "Community Forum", href: "/community-forum" },
 ];
 
 const socialMediaLinks: iconLink[] = [

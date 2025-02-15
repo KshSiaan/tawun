@@ -1,11 +1,7 @@
-"use client";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Title from "antd/es/typography/Title";
 import React from "react";
-
-import AddExpMod from "./addExpMod";
-import EditExpMod from "./edit-exp-mod";
 
 export default function Exp() {
   const exps = [
@@ -24,7 +20,6 @@ export default function Exp() {
       endDate: "June 2023",
     },
   ];
-
   return (
     <div className="py-12">
       <Title level={4}>Experience & Qualifications</Title>
@@ -40,12 +35,18 @@ export default function Exp() {
                 <p>({item.employmentType})</p>
               </div>
               <div className="space-x-2 flex flex-row justify-start items-start">
-                <p className="font-semibold">bdCalling IT LTD</p>
+                <p className="font-semibold">bdCalling IT LTD</p>{" "}
                 <p className="text-gray-400">Dec 2020 - June 2023</p>
               </div>
             </div>
             <div className="flex flex-row justify-end items-center gap-4">
-              <EditExpMod />
+              <Button
+                shape="round"
+                size="large"
+                className="h-12 w-12 text-green-600"
+              >
+                <EditOutlined />
+              </Button>
               <Button
                 shape="round"
                 size="large"
@@ -58,7 +59,12 @@ export default function Exp() {
         ))}
       </div>
       <div className="">
-        <AddExpMod />
+        <Button
+          className="bg-[#E9DABB] font-bold px-12 py-6 hover:!bg-[#b6a88c] hover:!text-background !border-none"
+          size="large"
+        >
+          Add more
+        </Button>
       </div>
     </div>
   );

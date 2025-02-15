@@ -29,11 +29,10 @@ export default function SectionA() {
         {" "}
         {/* Adjusted padding and py */}
         <Title level={5}>About Tawun</Title>
-        <Title level={2} className="!mt-2">
+        <Title level={2} className="!mt-2 !text-2xl md:!text-3xl">
           The best e-commerce platform in town since 2022
         </Title>
-        <p className="text-base md:text-lg text-gray-500">
-          {" "}
+        <p className="text-sm sm:text-base md:text-lg text-gray-500">
           {/* Adjusted text size */}
           Lorem ipsum dolor sit amet consectetur. Varius vel pharetra lobortis
           nulla. Imperdiet mattis nam velit urna auctor quis nullam pellentesque
@@ -49,6 +48,7 @@ export default function SectionA() {
         <Button
           className="bg-[#D5C19C] hover:!bg-[#a8987b] text-base md:text-lg py-4 md:py-6 px-8 md:px-16 w-full md:w-auto" // Adjusted padding, text size, and width
           size="large"
+          href="/service/categories"
         >
           Our Categtories
         </Button>

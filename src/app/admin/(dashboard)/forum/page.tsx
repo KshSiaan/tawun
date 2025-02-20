@@ -18,7 +18,7 @@ export default function Page() {
           </p>
         </DashTitle>
         <div className="flex-grow w-full flex flex-col justify-start items-stretch">
-          <div className="py-4 flex flex-row justify-between items-center">
+          <div className="py-4 flex flex-row justify-between items-center gap-4">
             <Input
               suffix={
                 <Search className="text-xl text-gray-400 hover:text-gray-500 cursor-pointer transition-colors" />
@@ -27,6 +27,15 @@ export default function Page() {
               size="large"
               placeholder="Search service"
             />
+            <Button
+              href="/admin/forum/reports"
+              type="primary"
+              variant="solid"
+              color="danger"
+              size="large"
+            >
+              See Reports
+            </Button>
           </div>
           <Title level={3} className="py-4">
             Service categories

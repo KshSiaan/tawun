@@ -24,7 +24,7 @@ export default function AddCat() {
           type="primary"
           htmlType="submit"
           size="large"
-          className="mt-8 py-8 text-lg px-8 bg-[#C5AD81] text-backgroundfont-bold hover:!bg-[#C4A77D]"
+          className="mt-8 py-6 text-lg px-8 bg-[#C5AD81] text-backgroundfont-bold hover:!bg-[#C4A77D]"
           variant="filled"
         >
           + Add Item

@@ -1,14 +1,41 @@
+"use client";
 import DashTitle from "@/components/ui/dash-title";
-import { Table } from "antd";
+import { Avatar, Button, Modal, Radio, Table, TableProps } from "antd";
 import Title from "antd/es/typography/Title";
-import React from "react";
+import { PencilLineIcon } from "lucide-react";
+import React, { useState } from "react";
 
 export default function Page() {
-  const columns = [
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const style: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  };
+
+  const columns: TableProps["columns"] = [
     {
       title: "User name",
       dataIndex: "uname",
       key: "uname",
+      render: (text) => (
+        <div className="gap-2 flex flex-row justify-start items-center">
+          <Avatar /> <span>{text}</span>
+        </div>
+      ),
     },
     {
       title: "Service name",
@@ -20,15 +47,72 @@ export default function Page() {
       dataIndex: "price",
       key: "price",
     },
+    // {
+    //   title: "Provider",
+    //   dataIndex: "provider",
+    //   key: "provider",
+    // },
     {
-      title: "Provider",
-      dataIndex: "provider",
-      key: "provider",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => (
+        <div className="px-4 py-2 bg-[#FEF2F2] w-min rounded-full">{text}</div>
+      ),
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
+      render: (text) => (
+        <>
+          <Button
+            onClick={showModal}
+            type="text"
+            className="px-4 py-2 !text-black w-min"
+          >
+            {text}
+          </Button>
+          <Modal
+            title="Change Status"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            closeIcon={null}
+            footer={
+              <Button
+                size="large"
+                onClick={handleOk}
+                className="bg-[#D5C19C] hover:!bg-[#968565] !text-background w-full !border-none"
+              >
+                Done
+              </Button>
+            }
+          >
+            <div className="p-4">
+              <Radio.Group
+                style={style}
+                options={[
+                  { value: 1, label: "Pending" },
+                  { value: 2, label: "Completed" },
+                  { value: 3, label: "Canceled" },
+                ]}
+              />
+            </div>
+          </Modal>
+        </>
+      ),
+    },
+  ];
+  const data = [
+    {
+      key: 1,
+      uname: "Seikh Alib",
+      sname: "Cleaning like a pro.",
+      price: "$454.00",
+      status: "Canceled",
+      // provider: "lol",
+      action: <PencilLineIcon size={16} />,
     },
   ];
   return (
@@ -43,7 +127,7 @@ export default function Page() {
         </p>
       </DashTitle>
       <div className="">
-        <Table columns={columns} />
+        <Table columns={columns} dataSource={data} />
       </div>
     </main>
   );

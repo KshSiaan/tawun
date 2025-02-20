@@ -1,5 +1,5 @@
 import type { FormProps } from "antd";
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import Title from "antd/es/typography/Title";
 import React from "react";
 
@@ -16,6 +16,10 @@ const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
+};
+
+const handleChange = (value: string[]) => {
+  console.log(`selected ${value}`);
 };
 
 export default function AddCatForm() {
@@ -37,7 +41,7 @@ export default function AddCatForm() {
             className="w-full"
           >
             <Form.Item<FieldType>
-              label="Category Name"
+              label="Category"
               name="company"
               rules={[
                 { required: true, message: "Please input your username!" },
@@ -53,7 +57,13 @@ export default function AddCatForm() {
                 { required: true, message: "Please input your password!" },
               ]}
             >
-              <Input size="large" />
+              <Select
+                mode="tags"
+                style={{ width: "100%" }}
+                placeholder="Tags Mode"
+                onChange={handleChange}
+                size="large"
+              />
             </Form.Item>
           </Form>
         </div>

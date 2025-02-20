@@ -1,8 +1,8 @@
 import BackText from "@/components/ui/back-text";
 import DashTitle from "@/components/ui/dash-title";
-import PostCard from "@/components/ui/post-card";
 import Title from "antd/es/typography/Title";
 import React from "react";
+import ForumPostCard from "../forum-post-card";
 
 export default function Page() {
   const posts = [
@@ -13,6 +13,7 @@ export default function Page() {
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bibendum vitae etiam lectus amet enim.",
       avatar: "/images/avatars/linuxoid.jpg",
+      reports: 0,
     },
     {
       name: "CodeNinja",
@@ -21,6 +22,7 @@ export default function Page() {
       content:
         "Exploring the power of useState and useEffect in React.  It's amazing!",
       avatar: "/images/avatars/codeninja.png",
+      reports: 5,
     },
     {
       name: "DataWhiz",
@@ -29,6 +31,7 @@ export default function Page() {
       content:
         "A look at the latest trends in data visualization and how they are changing the way we understand data.",
       avatar: "/images/avatars/datawhiz.svg",
+      reports: 0,
     },
     {
       name: "DataWhiz",
@@ -37,6 +40,7 @@ export default function Page() {
       content:
         "A look at the latest trends in data visualization and how they are changing the way we understand data.",
       avatar: "/images/avatars/datawhiz.svg",
+      reports: 0,
     },
   ];
   return (
@@ -55,7 +59,7 @@ export default function Page() {
           <BackText text="Cleaning like a pro" />
           <div className="">
             {posts.map((item, index) => (
-              <PostCard {...item} key={index} />
+              <ForumPostCard {...item} key={index} type="post" />
             ))}
           </div>
         </div>

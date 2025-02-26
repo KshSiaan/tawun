@@ -25,14 +25,6 @@ export default function Window({ cat, catSel }: WindowProps) {
   const onChange = (currentSlide: number) => {
     console.log(currentSlide);
   };
-  const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    // background: "#364d79",
-  };
 
   return (
     <>
@@ -45,7 +37,7 @@ export default function Window({ cat, catSel }: WindowProps) {
           <p className="text-background text-lg">{category.description}</p>
           <div className="h-1/3" />
           {categorySelection ? (
-            <div className="absolute w-[90%] h-[200px] md:h-[300px] bg-background -bottom-[100px] md:-bottom-[150px] p-2 md:p-6 rounded-lg">
+            <div className="absolute w-[90%] h-[200px] sm:h-[300px] bg-background -bottom-[100px] md:-bottom-[150px] p-2 md:p-6 rounded-lg">
               <div className="flex">
                 <Title
                   level={2}
@@ -66,7 +58,7 @@ export default function Window({ cat, catSel }: WindowProps) {
                   autoplay
                 >
                   <div>
-                    <div className="flex flex-row justify-around gap-3 p-2">
+                    <div className="grid grid-cols-6 gap-3 p-2">
                       {categorySelection.slice(0, 6).map((item) => (
                         <Link
                           href="/service/categories/sub-categories"
@@ -89,56 +81,8 @@ export default function Window({ cat, catSel }: WindowProps) {
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-row justify-around gap-3">
-                    <div className="flex flex-row justify-around gap-3 p-2">
-                      {categorySelection.slice(0, 6).map((item) => (
-                        <Link
-                          href="/service/categories/sub-categories"
-                          key={item.title}
-                        >
-                          <div className="w-[94px] h-[94px] md:w-[200px] md:h-[200px] hover:shadow-lg rounded-lg transition-shadow duration-500 cursor-pointer">
-                            <div className="w-full h-full flex flex-col justify-start items-center">
-                              <div
-                                className=" h-[48px] w-[48px] md:h-[100px] md:w-[100px] bg-cover bg-center rounded-full"
-                                style={{
-                                  backgroundImage: `url(${item.image})`,
-                                }}
-                              ></div>
-                              <p className="text-center font-semibold text-sm md:text-2xl break-words max-w-full text-black pt-4">
-                                {item.title}
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-row justify-around gap-3">
-                    <div className="flex flex-row justify-around gap-3 p-2">
-                      {categorySelection.slice(0, 6).map((item) => (
-                        <Link
-                          href="/service/categories/sub-categories"
-                          key={item.title}
-                        >
-                          <div className="w-[94px] h-[94px] md:w-[200px] md:h-[200px] hover:shadow-lg rounded-lg transition-shadow duration-500 cursor-pointer">
-                            <div className="w-full h-full flex flex-col justify-start items-center">
-                              <div
-                                className=" h-[48px] w-[48px] md:h-[100px] md:w-[100px] bg-cover bg-center rounded-full"
-                                style={{
-                                  backgroundImage: `url(${item.image})`,
-                                }}
-                              ></div>
-                              <p className="text-center font-semibold text-sm md:text-2xl break-words max-w-full text-black pt-4">
-                                {item.title}
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-row justify-around gap-3">
-                    <div className="flex flex-row justify-around gap-3 p-2">
+                  <div>
+                    <div className="grid grid-cols-6 gap-3 p-2">
                       {categorySelection.slice(0, 6).map((item) => (
                         <Link
                           href="/service/categories/sub-categories"

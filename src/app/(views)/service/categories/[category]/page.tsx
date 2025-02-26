@@ -61,7 +61,7 @@ export default async function Page({
         cat={category}
         // catSel={categorySelection}
       />
-      <Shop />
+      <Shop title="Cleaning section" />
       <div className="px-[7%] flex flex-row justify-center items-center">
         <Button className="w-1/3 py-6 border-[#D5C19C] font-bold" size="large">
           Load more

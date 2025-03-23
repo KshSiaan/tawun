@@ -1,30 +1,80 @@
 "use client";
+import { Finalizer, postFetcher } from "@/lib/simplifier";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { App, Button, Form, FormProps } from "antd";
 
 import Input from "antd/es/input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 
 type FieldType = {
-  name?: string;
+  full_name?: string;
   email?: string;
-  service?: string;
+  provider_description?: string;
   password?: string;
 };
 export default function RegisterForm({ user }: { user: string }) {
+  const [form] = Form.useForm();
   const { message } = App.useApp();
   const navig = useRouter();
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
-    message.success("Succesfully registered");
+  const [pookies, setPookie] = useCookies(["raven"]);
+  const [waiting, setWaiting] = useState<boolean>(false);
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setWaiting(true);
+    try {
+      console.log(values);
 
+      const call = await postFetcher({
+        link: "/auth/register",
+        meth: "POST",
+        token: pookies.raven,
+        data: values,
+      });
+      console.log(call);
+      if (!call.status) {
+        const nameErrors = call.message.full_name || [];
+        const serviceErrors = call.message.provider_description || [];
+        const emailErrors = call.message.email || [];
+        const passwordErrors = call.message.password || [];
+
+        // Set errors individually for email and password fields
+        form.setFields([
+          {
+            name: "full_name",
+            errors: nameErrors.length > 0 ? nameErrors : [],
+          },
+          {
+            name: "email",
+            errors: emailErrors.length > 0 ? emailErrors : [],
+          },
+          {
+            name: "password",
+            errors: passwordErrors,
+          },
+          {
+            name: "service",
+            errors: serviceErrors.length > 0 ? serviceErrors : [],
+          },
+        ]);
+        setWaiting(false);
+        return;
+      } else {
+        setPookie("raven", call.access_token);
+        Finalizer(message, call.status, call.message);
+      }
+    } catch (error) {
+      setWaiting(false);
+      console.error(error);
+      return;
+    }
     if (user == "provider") {
       navig.push("/my-account");
     } else {
       navig.push("/");
     }
+    setWaiting(false);
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
@@ -34,6 +84,7 @@ export default function RegisterForm({ user }: { user: string }) {
   };
   return (
     <Form
+      form={form}
       name="login"
       layout="vertical"
       initialValues={{ remember: true }}
@@ -44,7 +95,7 @@ export default function RegisterForm({ user }: { user: string }) {
     >
       <Form.Item<FieldType>
         label="Full name"
-        name="name"
+        name="full_name"
         rules={[{ required: true, message: "Please enter your full name" }]}
       >
         <Input
@@ -66,17 +117,21 @@ export default function RegisterForm({ user }: { user: string }) {
           placeholder="Please enter your email"
         />
       </Form.Item>
-      <Form.Item<FieldType>
-        label="What service you want to provide?"
-        name="service"
-        rules={[{ required: true, message: "This field is required to fill" }]}
-      >
-        <Input
-          size="large"
-          className="bg-[#F0E8FF]"
-          placeholder="Type here...."
-        />
-      </Form.Item>
+      {user == "provider" && (
+        <Form.Item<FieldType>
+          label="What service you want to provide?"
+          name="provider_description"
+          rules={[
+            { required: true, message: "This field is required to fill" },
+          ]}
+        >
+          <Input
+            size="large"
+            className="bg-[#F0E8FF]"
+            placeholder="Type here...."
+          />
+        </Form.Item>
+      )}
       <Form.Item<FieldType>
         label="Password"
         name="password"
@@ -97,6 +152,7 @@ export default function RegisterForm({ user }: { user: string }) {
       </div>
       <Form.Item label={null}>
         <Button
+          loading={waiting}
           type="primary"
           htmlType="submit"
           size="large"

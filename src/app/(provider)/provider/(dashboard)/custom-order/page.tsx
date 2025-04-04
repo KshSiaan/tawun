@@ -70,7 +70,7 @@ export default function Page() {
             >
               {text}
             </Button>
-            <DeletePopover message="Are you sure delete this offer ?" />
+            <DeletePopover messaged="Are you sure delete this offer ?" />
           </div>
           <Modal
             title={null}

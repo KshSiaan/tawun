@@ -11,9 +11,9 @@ export default function DeletePopover({
   messaged,
   type,
 }: {
-  type: string;
-  id: string;
-  messaged: string;
+  type?: string;
+  id?: string;
+  messaged?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies(["raven"]);

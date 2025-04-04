@@ -13,6 +13,7 @@ export interface ServiceType {
   reviews_count: string;
   reviews_avg_rating: string | null;
   reviews: Review[];
+  price_with_fees: string;
 }
 
 interface Review {
@@ -29,9 +30,9 @@ interface User {
   image: string;
 }
 
-interface Subcategory {
+export interface Subcategory {
   id: string;
-  service_category_id: string;
+  service_sub_categories_id: string;
   name: string;
   image: string;
   created_at: string;

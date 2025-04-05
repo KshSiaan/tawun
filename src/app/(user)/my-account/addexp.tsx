@@ -16,10 +16,7 @@ type FieldType = {
 export default function Addexp() {
   const [form] = Form.useForm();
   const [cookies] = useCookies(["raven"]);
-  const onFinish: FormProps<FieldType>["onFinish"] = async (values: {
-    join_date: { format: (arg0: string) => any };
-    resign_date: { format: (arg0: string) => any };
-  }) => {
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values: any) => {
     const formattedValues = {
       ...values,
       join_date: values.join_date
@@ -29,6 +26,7 @@ export default function Addexp() {
         ? values.resign_date.format("YYYY-MM-DD")
         : null,
     };
+
     // console.log("Success:", formattedValues);
 
     try {

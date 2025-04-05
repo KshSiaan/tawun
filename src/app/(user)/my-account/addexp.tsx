@@ -11,8 +11,8 @@ type FieldType = {
   company_name?: string;
   job_role?: string;
   description?: string;
-  join_date?: any;
-  resign_date?: any;
+  join_date?: Dayjs;
+  resign_date?: Dayjs;
 };
 
 export default function Addexp() {

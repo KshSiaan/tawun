@@ -55,7 +55,7 @@ export default function Page() {
           <BackText text="Back" />
           <div className="">
             {posts.map((item, index) => (
-              <ForumPostCard {...item} key={index} type="report" />
+              <ForumPostCard  {...item} key={index} type="report" />
             ))}
           </div>
         </div>

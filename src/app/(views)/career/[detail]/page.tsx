@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+"use server";
 import ApplyButton from "@/components/ui/apply-button";
 import BackText from "@/components/ui/back-text";
+import { getFetcher } from "@/lib/simplifier";
+import { Job } from "@/types/others";
 import Title from "antd/es/typography/Title";
 import {
   Building2,
@@ -92,31 +94,57 @@ const job_opp: JobOpportunity = {
   posted_date: "",
 };
 
-export default function Page() {
+export default async function Page({ params }: { params: { detail: string } }) {
+  console.log(params.detail);
+
+  let call;
+
+  try {
+    call = await getFetcher({
+      link: `/job-details/${params.detail}`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+  console.log(call);
+
+  if (!call.status) {
+    console.error(call.message);
+
+    return (
+      <>
+        <div className="h-[300px] w-full flex justify-center items-center">
+          {call.message}
+        </div>
+      </>
+    );
+  }
+  const job: Job = call.data;
+
   return (
     <main className="py-12 px-6 md:px-[7%]">
       <BackText text={"Back to Careers"} />
       <div className="py-12 grid grid-cols-1 lg:grid-cols-7 gap-6">
         <div className="lg:col-span-5 rounded-t-xl overflow-hidden w-full bg-background pb-4">
           <div className="w-full">
-            <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row justify-between items-start md:items-center bg-[#BBA782]">
+            <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row justify-between items-start md:items-center bg-[#7849D4]">
               <Title
                 level={3}
                 className="!m-0 !text-background text-lg md:text-xl"
               >
-                {job_opp.title}
+                {job.job_role}
               </Title>
               <ApplyButton
-                to={job_opp.to}
+                to={`/career/${job.id}/apply-role`}
                 //  className="mt-4 md:mt-0"
               />
             </div>
           </div>
           <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 border rounded-lg space-y-6">
-              {renderJobDetail(job_opp.icons.location, job_opp.company.name)}
-              {renderJobDetail(job_opp.icons.globe, job_opp.company.website)}
-              {renderJobDetail(job_opp.icons.pin, job_opp.location)}
+              {renderJobDetail(job_opp.icons.location, "Tawun")}
+              {renderJobDetail(job_opp.icons.globe, "tawun.com")}
+              {renderJobDetail(job_opp.icons.pin, job.address)}
             </div>
             <div className="p-6 border rounded-lg space-y-6">
               {renderJobDetail(
@@ -124,11 +152,14 @@ export default function Page() {
                 job_opp.employment_type
               )}
               {renderJobDetail(job_opp.icons.clock, job_opp.employment_type)}
-              {renderJobDetail(job_opp.icons.calendar, job_opp.end_date)}
+              {renderJobDetail(
+                job_opp.icons.calendar,
+                "Deadline: " + job.deadline
+              )}
             </div>
           </div>
-          <Section title="About Position" text={job_opp.about_position.text} />
-          <Section title="What you'll do" text={job_opp.what_youll_do.text} />
+          <Section title="About Position" text={job.description} />
+          {/* <Section title="What you'll do" text={job_opp.what_youll_do.text} />
           <ListSection
             title="What you should have"
             items={job_opp.what_you_should_have.items}
@@ -136,11 +167,11 @@ export default function Page() {
           <ListSection
             title="Nice to have"
             items={job_opp.nice_to_have.items}
-          />
+          /> */}
         </div>
         <div className="lg:col-span-2">
           <div className="w-full">
-            <div className="py-6 px-4 md:px-6 rounded-t-xl bg-[#BBA782]">
+            <div className="py-6 px-4 md:px-6 rounded-t-xl bg-[#7849D4]">
               <Title
                 level={3}
                 className="!m-0 !text-background text-lg md:text-xl"
@@ -149,10 +180,7 @@ export default function Page() {
               </Title>
             </div>
           </div>
-          <div className="bg-background p-4 md:p-6">
-            {job_opp.about_us.text}{" "}
-            <span className="font-bold">Read more...</span>
-          </div>
+          <div className="bg-background p-4 md:p-6">{job.description}</div>
         </div>
       </div>
     </main>
@@ -180,48 +208,17 @@ function Section({ title, text }: { title: string; text: string }) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ListSection({ title, items }: { title: string; items: any }) {
-  return (
-    <div className="pt-8 px-4 md:px-6 space-y-4">
-      <Title level={3} className="!m-0 text-lg md:text-xl">
-        {title}
-      </Title>
-      <ul className="list-disc pl-4 text-sm md:text-base">
-        {items.map(
-          (
-            item:
-              | string
-              | number
-              | bigint
-              | boolean
-              | React.ReactElement<
-                  unknown,
-                  string | React.JSXElementConstructor<any>
-                >
-              | Iterable<React.ReactNode>
-              | React.ReactPortal
-              | Promise<
-                  | string
-                  | number
-                  | bigint
-                  | boolean
-                  | React.ReactPortal
-                  | React.ReactElement<
-                      unknown,
-                      string | React.JSXElementConstructor<any>
-                    >
-                  | Iterable<React.ReactNode>
-                  | null
-                  | undefined
-                >
-              | null
-              | undefined,
-            i: React.Key | null | undefined
-          ) => (
-            <li key={i}>{item}</li>
-          )
-        )}
-      </ul>
-    </div>
-  );
-}
+// function ListSection({ title, items }: { title: string; items: any }) {
+//   return (
+//     <div className="pt-8 px-4 md:px-6 space-y-4">
+//       <Title level={3} className="!m-0 text-lg md:text-xl">
+//         {title}
+//       </Title>
+//       <ul className="list-disc pl-4 text-sm md:text-base">
+//         {items.map((item: string, i: React.Key) => (
+//           <li key={i}>{item}</li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }

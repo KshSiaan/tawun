@@ -6,7 +6,7 @@ import React from "react";
 export default function HowItWorks() {
   return (
     <>
-      <div className="py-8 pt-[100px] px-4 sm:px-8 md:px-[7%] grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="py-8 pt-[100px] px-4 sm:px-8 md:px-[7%] grid grid-cols-1 xl:grid-cols-2 gap-8 bg-[#7849D4]">
         <div className="space-y-8">
           <Title>How it works?</Title>
           <p className="text-lg pb-8">
@@ -34,7 +34,7 @@ export default function HowItWorks() {
           <Button
             href="/how-it-works"
             size="large"
-            className="px-8 py-6 text-lg font-semibold !border-2 border-[#88744F] text-[#88744F]"
+            className="px-8 py-6 text-lg font-semibold !border-2 !border-[#5a37a0] !text-[#44297a]"
           >
             See all
           </Button>

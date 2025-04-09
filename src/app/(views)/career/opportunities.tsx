@@ -1,42 +1,38 @@
+"use server";
 import ApplyButton from "@/components/ui/apply-button";
+import { getFetcher } from "@/lib/simplifier";
+import { Job, JobData } from "@/types/others";
 import { SearchOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Title from "antd/es/typography/Title";
 import React from "react";
 
-export default function Opportunities() {
-  const opportunities = [
-    {
-      role: "Design",
-      opens: [
-        {
-          role: "UI-UX Designer",
-          location: "Banasree, Dhaka",
-          category: "Design",
-        },
-        {
-          role: "Graphic Designer",
-          location: "Banasree, Dhaka",
-          category: "Design",
-        },
-      ],
-    },
-    {
-      role: "Development",
-      opens: [
-        {
-          role: "React native developer",
-          location: "Banasree, Dhaka",
-          category: "Development",
-        },
-      ],
-    },
-  ];
+export default async function Opportunities() {
+  // if (typeof window !== "undefined") {
+  //   return <>client</>;
+  // } else {
+  //   return <>server</>;
+  // }
+
+  let call;
+
+  try {
+    call = await getFetcher({ link: "/list-job" });
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (!call.status) {
+    message.error(call.message);
+  }
+
+  const jobData: JobData[] = call.data;
   return (
     <section className="py-16">
       <div className="mx-auto">
         <div className="px-[7%] bg-background py-20 relative">
-          <div className="absolute top-6 right-0 mr-[7%] px-6 py-2 rounded-full border-2 border-[#88744F]">
+          <div className="absolute top-6 right-0 mr-[7%] px-6 py-2 rounded-full border-2 border-[#7849D4]">
             3 open positions
           </div>
           <Title level={2} className="mb-0 text-center">
@@ -53,47 +49,52 @@ export default function Opportunities() {
                 className="flex-1 p-3"
                 placeholder="Search opportunities"
               />
-              <button className="p-3 px-4 bg-[#88744F]">
+              <button className="p-3 px-4 bg-[#7849D4]">
                 <SearchOutlined className="text-background" />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="py-12 px-[7%]">
-          {opportunities.map((item, i) => (
-            <div className="pt-12" key={i}>
-              <div className="h-[120px] flex justify-center items-center">
-                <div className="asbolute left-0 bg-[#FBF9F5] p-1">
-                  <div className=" bg-[#88744F] px-2 md:px-4 py-2 rounded-full font-bold text-background text-xs md:text-base">
-                    {item.role}
+        <div className="!py-12 !px-[7%]">
+          {Object.entries(jobData as unknown as Record<string, Job[]>).map(
+            ([category, jobs]) => (
+              <div className="pt-12" key={category}>
+                {/* Category Header */}
+                <div className="h-[120px] relative flex justify-center items-center">
+                  <div className="absolute left-0 bg-[#FFFFFF] p-1">
+                    <div className="bg-[#7849D4] px-2 md:px-4 py-2 rounded-full font-bold text-background text-xs md:text-base">
+                      {category}
+                    </div>
                   </div>
+                  <div className="w-full h-[2px] bg-[#7849D4]"></div>
                 </div>
-                <div className="w-full h-[2px] bg-[#88744F]"></div>
-              </div>
-              <div className="space-y-6">
-                {item.opens.map((item, i) => (
-                  <div
-                    className="py-6 px-8 flex flex-col gap-6 md:gap-0 md:flex-row justify-between items-center font-semibold rounded-xl bg-background"
-                    key={item.role + i}
-                  >
-                    <div className="">
-                      <Title
-                        level={5}
-                        className="!m-0 !text-2xl md:!text-base text-center"
-                      >
-                        {item.role}
-                      </Title>
+
+                {/* Jobs in this Category */}
+                <div className="space-y-6">
+                  {jobs.map((job) => (
+                    <div
+                      className="py-6 px-8 flex flex-col gap-6 md:gap-0 md:flex-row justify-between items-center font-semibold rounded-xl bg-background"
+                      key={job.id}
+                    >
+                      <div className="w-1/3">
+                        <Title
+                          level={5}
+                          className="!m-0 !text-2xl md:!text-base text-center md:text-start"
+                        >
+                          {job.job_role}
+                        </Title>
+                      </div>
+                      <div className="!text-sm md:!text-base w-1/3">
+                        {job.address}
+                      </div>
+                      <ApplyButton to={`/career/${job.id}`} />
                     </div>
-                    <div className="!text-sm md:!text-base">
-                      {item.location}
-                    </div>
-                    <ApplyButton to="/career/about-opportunity" />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>

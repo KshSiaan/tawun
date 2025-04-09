@@ -1,22 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { UserType } from "@/types/userType";
 import DeletePopover from "./delete-popover";
 import ViewUser from "./view-user";
-
-export interface ListingItem {
-  sr?: number;
-  name?: string;
-  email: string;
-  id?: string;
-  address?: string;
-  brought?: string;
-  contact?: string;
-}
 
 export default function UPTable({
   data,
   provider,
 }: {
-  data: ListingItem[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: UserType[];
   provider?: boolean;
 }) {
   return (
@@ -26,13 +18,13 @@ export default function UPTable({
         {data.map((item, i) => (
           <Data
             key={i}
-            sr={item.sr}
-            name={item.name}
+            img={item.image}
+            sr={parseInt(item.id)}
+            name={item.full_name}
             email={item.email}
             id={item.id}
             address={item.address}
-            brought={item.brought}
-            contact={item.contact}
+            contact={item.contact ? item.contact : ""}
             provider={provider}
           />
         ))}
@@ -43,7 +35,7 @@ export default function UPTable({
 
 function Col({ provider }: { provider?: boolean }) {
   return (
-    <div className="flex items-center py-4 text-xs sm:text-sm md:text-base font-semibold sticky top-0 bg-[#FBF9F5]">
+    <div className="flex items-center py-4 text-xs sm:text-sm md:text-base font-semibold sticky top-0">
       <div className="w-1/12 text-center">Sr. No</div>
       <div className="w-3/12 text-center">User Name</div>
       <div className="w-2/12 text-center">Email</div>
@@ -55,30 +47,33 @@ function Col({ provider }: { provider?: boolean }) {
 
 function Data({
   sr,
+  img,
   name,
   email,
   id,
   address,
-  brought,
   contact,
   provider,
 }: {
   sr?: number;
   name?: string;
+  img?: string;
   email: string;
   id?: string;
   address?: string;
-  brought?: string;
   contact?: string;
   provider?: boolean;
 }) {
   return (
-    <div className="flex items-center py-3 text-xs sm:text-sm md:text-base gap-4 bg-background rounded-lg divide-x divide-gray-300">
+    <div className="flex items-center py-3 text-xs sm:text-sm md:text-base gap-4 rounded-lg divide-x divide-gray-300 bg-[#F0E8FF]">
       <div className="w-1/12 flex justify-center items-center font-semibold">
         {sr}.
       </div>
       <div className="w-3/12 flex justify-start items-center gap-4">
-        <div className="h-12 w-12 bg-gray-300 rounded-lg"></div>
+        <div
+          className="h-12 w-12 bg-gray-300 rounded-lg bg-cover bg-center"
+          style={{ backgroundImage: `url(${img})` }}
+        ></div>
         <div className="md:text-lg font-bold">{name}</div>
       </div>
       <div className="w-2/12 flex justify-center items-center font-semibold">
@@ -94,12 +89,25 @@ function Data({
         )}
       </div>
       <div className="w-3/12 flex justify-center items-center gap-1 text-sm">
-        <ViewUser />
-        <DeletePopover
-          message={`Are you sure you want to delete this ${
-            provider ? "Provider" : "User"
-          }`}
+        <ViewUser
+          img={img}
+          id={id}
+          name={name}
+          email={email}
+          address={address}
+          contact={contact}
         />
+        {id ? (
+          <DeletePopover
+            id={id}
+            type={provider ? "provider" : "user"}
+            messaged={`Are you sure you want to delete this ${
+              provider ? "Provider" : "User"
+            }`}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

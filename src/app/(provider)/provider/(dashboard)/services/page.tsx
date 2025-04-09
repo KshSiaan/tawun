@@ -5,10 +5,21 @@ import { Hand } from "lucide-react";
 import Title from "antd/es/typography/Title";
 import { Button } from "antd";
 import ProductCard from "@/components/ui/product-card";
-import { products } from "@/app/(views)/service/serviceData";
 import Link from "next/link";
+import { getFetcher } from "@/lib/simplifier";
+import { cookies } from "next/headers";
+import { ServiceType } from "@/types/Services";
 
-export default function Page() {
+export default async function Page() {
+  const token = cookies().get("token")?.value;
+  const call = await getFetcher({ link: "/get-all-services", token });
+
+  if (!call.status) {
+    return <p>Error loading data</p>;
+  }
+
+  const products: ServiceType[] = call.data.data;
+
   return (
     <div className="flex flex-col min-h-screen w-full px-8 py-6 overflow-y-auto">
       <DashTitle>
@@ -29,7 +40,7 @@ export default function Page() {
         <div className="">
           <Button
             href="/provider/services/add"
-            className="bg-[#D5C19C] hover:!bg-[#9c8c6e] hover:!text-background font-bold px- border-none"
+            className="bg-[#7849D4] hover:!bg-[#7849D4] !text-background font-bold px-8 border-none"
             size="large"
           >
             + Add new
@@ -38,8 +49,8 @@ export default function Page() {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 py-12 gap-6">
         {products.map((item, i) => (
-          <Link href="/provider/services/product" key={i}>
-            <ProductCard product={item} />
+          <Link href="/provider/services/product" key={i} legacyBehavior>
+            <ProductCard product={item} checkProvider />
           </Link>
         ))}
       </div>

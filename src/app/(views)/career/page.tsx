@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
 
 import Image from "next/image";
 import {
@@ -20,12 +19,13 @@ import CoreVal from "./core-val";
 import Resources from "./resources";
 import Opportunities from "./opportunities";
 import Newsletter from "./newsletter";
+import Faq from "./faq";
 
 const { Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
 
 export default function Page() {
-  const { token } = theme.useToken();
+  // const { token } = theme.useToken();
 
   return (
     <main>
@@ -46,6 +46,8 @@ export default function Page() {
 
       {/* Newsletter */}
       <Newsletter />
+
+      <Faq />
     </main>
   );
 }

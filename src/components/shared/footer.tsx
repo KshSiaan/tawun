@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
 import React from "react";
 
 type LinkItem = {
@@ -16,22 +15,22 @@ type iconLink = {
 const categories: LinkItem[] = [
   { name: "Everyday essentials", href: "/service/categories/everyday" },
   { name: "Household", href: "/service/categories/household" },
-  { name: "Professional", href: "/service/categories" },
+  { name: "Professional", href: "/service/categories/professional" },
   { name: "Education", href: "/service/categories/education" },
-  { name: "Creative", href: "/service/categoriesy/creative" },
+  { name: "Creative", href: "/service/categories/creative" },
   {
     name: "Information technology",
-    href: "service/categories/information-technology",
+    href: "/service/categories/information-technology",
   },
-  { name: "Specialized", href: "service/categories/specialized" },
-  { name: "Commercial", href: "service/categories/commercial" },
-  { name: "Tailored Service", href: "service/categories/custom" },
+  { name: "Specialized", href: "/service/categories/specialized" },
+  { name: "Commercial", href: "/service/categories/commercial" },
+  { name: "Tailored Service", href: "/service/categories/custom" },
 ];
 
 const companyLinks: LinkItem[] = [
   { name: "About Tawun", href: "/about" },
   { name: "How it works", href: "/how-it-works" },
-  { name: "Help & support", href: "/help-support" },
+  { name: "Help & support", href: "/contact" },
   { name: "Terms of service", href: "/tnc" },
   { name: "Privacy policy", href: "/privacy-policy" },
   { name: "Careers", href: "/career" },
@@ -45,7 +44,7 @@ const socialMediaLinks: iconLink[] = [
     icon: (
       <svg
         className="h-6 w-6"
-        fill="currentColor"
+        fill="#ffffff"
         viewBox="0 0 24 24"
         aria-hidden="true"
       >
@@ -63,7 +62,7 @@ const socialMediaLinks: iconLink[] = [
     icon: (
       <svg
         className="h-6 w-6"
-        fill="currentColor"
+        fill="#ffffff"
         viewBox="0 0 24 24"
         aria-hidden="true"
       >
@@ -81,7 +80,7 @@ const socialMediaLinks: iconLink[] = [
 
 export default function Footer() {
   return (
-    <footer className="w-full pt-12 bg-white">
+    <footer className="w-full pt-12 bg-[#7849D4] !text-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -89,27 +88,23 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="Tawun Logo"
-                width={120}
-                height={120}
-                className="w-auto h-auto"
+                width={240}
+                height={240}
+                className="w-auto h-16"
               />
             </Link>
-            <address className="not-italic text-gray-600">
+            <address className="not-italic !text-background">
               <p>Street name, Area address</p>
               <p>City name, Country</p>
             </address>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Phone className="h-4 w-4" />
-                <a href="tel:+880-244105465" className="hover:underline">
-                  +880-244105465
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600">
-                <Mail className="h-4 w-4" />
-                <a href="mailto:tawun21@gmail.com" className="hover:underline">
-                  tawun21@gmail.com
-                </a>
+            <div className="">
+              <div className="flex items-center gap-2 !text-background">
+                <Link
+                  href="/contact"
+                  className="hover:underline font-bold !no-underline hover:text-black"
+                >
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>
@@ -119,7 +114,10 @@ export default function Footer() {
             <ul className="space-y-2">
               {categories.map(({ name, href }) => (
                 <li key={name}>
-                  <Link href={href} className="text-gray-600 hover:underline">
+                  <Link
+                    href={href}
+                    className="!text-background hover:!text-black"
+                  >
                     {name}
                   </Link>
                 </li>
@@ -132,7 +130,10 @@ export default function Footer() {
             <ul className="space-y-2">
               {companyLinks.map(({ name, href }) => (
                 <li key={name}>
-                  <Link href={href} className="text-gray-600 hover:underline">
+                  <Link
+                    href={href}
+                    className="!text-background hover:!text-black"
+                  >
                     {name}
                   </Link>
                 </li>
@@ -156,7 +157,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="py-4 mt-12 text-center text-gray-600 font-bold">
+        <div className="py-4 mt-12 text-center !text-background font-bold">
           <p>© Tawun 2024 | All Rights Reserved</p>
         </div>
       </div>

@@ -9,6 +9,11 @@ type FieldType = {
 };
 const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
   console.log("Success:", values);
+
+  try {
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -30,7 +35,11 @@ export default function CustomForm() {
         name="info"
         rules={[{ required: true, message: "Please enter your contact info" }]}
       >
-        <Input size="large" placeholder="Type here..." />
+        <Input
+          size="large"
+          placeholder="Type here..."
+          className="bg-[#F0E8FF]"
+        />
       </Form.Item>
       <Form.Item<FieldType>
         label={<p className="text-lg font-semibold">Your Wish</p>}
@@ -39,7 +48,7 @@ export default function CustomForm() {
       >
         <Input.TextArea
           placeholder="type here...."
-          className="resize-none"
+          className="resize-none bg-[#F0E8FF]"
           rows={8}
           size="large"
         />
@@ -49,7 +58,7 @@ export default function CustomForm() {
           type="primary"
           htmlType="submit"
           size="large"
-          className="mt-8 bg-[#88744F] text-black font-bold px-10 hover:!bg-[#C4A77D] !text-background"
+          className="mt-8 text-black font-bold px-10 bg-[#7849D4] !text-background hover:!bg-[#603baa]"
           variant="filled"
         >
           Send

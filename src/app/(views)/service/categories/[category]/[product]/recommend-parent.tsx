@@ -4,8 +4,9 @@ import { Button, Switch } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
 import Recommends from "./recommends";
+import { ServiceType } from "@/types/Services";
 
-export default function RecommendParent() {
+export default function RecommendParent({ data }: { data: ServiceType[] }) {
   const [rec, setRec] = useState<boolean>(true);
 
   return (
@@ -14,12 +15,12 @@ export default function RecommendParent() {
         <Title className="!m-0 !text-base md:!text-2xl" level={3}>
           Recommended for you
         </Title>
-        <div className="hidden lg:flex flex-row justify-end items-center gap-2">
-          <Button className="rounded-full h-9 w-9 border-2 border-[#D5C19C]">
+        <div className="hidden lg:hidden flex-row justify-end items-center gap-2">
+          <Button className="rounded-full h-9 w-9 border-2 border-[#7849D4] ">
             <CaretLeftOutlined />
           </Button>
-          <Button className="rounded-full h-9 w-9 bg-[#D5C19C]">
-            <CaretRightOutlined />
+          <Button className="rounded-full h-9 w-9 bg-[#7849D4] ">
+            <CaretRightOutlined className="text-background" />
           </Button>
         </div>
         {/* For mobile, switch to toggle recommendations */}
@@ -36,7 +37,7 @@ export default function RecommendParent() {
       {rec && (
         <div className="rounded-xl md:p-8 bg-background mt-6 w-full overflow-x-auto">
           <div className="flex flex-nowrap md:grid grid-cols-2 xl:grid-cols-2 gap-4 md:gap-6">
-            <Recommends />
+            <Recommends data={data} />
           </div>
         </div>
       )}

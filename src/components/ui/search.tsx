@@ -48,7 +48,6 @@ export default function Search({
           setResults(call.data.data || []);
         }
       } catch (error) {
-        message.error("Failed to fetch search results");
         console.error(error);
 
         setResults([]);

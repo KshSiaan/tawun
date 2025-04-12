@@ -2,7 +2,7 @@
 import { getFetcher } from "@/lib/simplifier";
 import { Category } from "@/types/Services";
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { Loader2, SearchIcon } from "lucide-react";
 import Link from "next/link";

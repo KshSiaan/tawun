@@ -1,15 +1,15 @@
 "use client";
 import {
-  CategoriesIcon,
+  // CategoriesIcon,
   ChatsIcon,
-  CustomOrdersIcon,
+  // CustomOrdersIcon,
   DashboardIcon,
   OrdersIcon,
   ServicesIcon,
-  SettingIcon,
-  WithdrawIcon,
+  // SettingIcon,
+  // WithdrawIcon,
 } from "@/app/icons/localIcons";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+// import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import { KeyRoundIcon } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
@@ -19,9 +19,8 @@ export default function SideMenu() {
   const router = useRouter();
   const pathname = usePathname();
   const [current, setCurrent] = useState("dashboard"); // Default selection
-
+//lallalala
   useEffect(() => {
-    // Extract the key from the pathname (e.g., /provider/dashboard -> dashboard)
     const pathParts = pathname.split("/");
     const extractedKey = pathParts[pathParts.length - 1] || "dashboard"; // Default to dashboard if no key
 
@@ -44,48 +43,49 @@ export default function SideMenu() {
       key: "services",
       icon: <ServicesIcon />,
     },
-    {
-      label: "Withdraw",
-      key: "withdraw",
-      icon: <WithdrawIcon />,
-    },
-    {
-      label: "Categories",
-      key: "categories",
-      icon: <CategoriesIcon />,
-    },
+    // {
+    //   label: "Withdraw",
+    //   key: "withdraw",
+    //   icon: <WithdrawIcon />,
+    // },
+    // {
+    //   label: "Categories",
+    //   key: "categories",
+    //   icon: <CategoriesIcon />,
+    // },
     {
       label: "Your Order",
       key: "order",
       icon: <OrdersIcon />,
     },
-    {
-      label: "Custom Order",
-      key: "custom-order",
-      icon: <CustomOrdersIcon />,
-    },
+    // {
+    //   label: "Custom Order",
+    //   key: "custom-order",
+    //   icon: <CustomOrdersIcon />,
+    // },
     {
       label: "Chat",
       key: "chat",
       icon: <ChatsIcon />,
     },
+    // {
+    //   label: "Go back to your website",
+    //   key: "",
+    //   icon: <ArrowLeftOutlined />,
+    // },
     {
-      label: "Go back to your website",
-      key: "",
-      icon: <ArrowLeftOutlined />,
+      label: "Change Password",
+      key: "profile?nav=cp",
+      icon: <KeyRoundIcon />,
     },
-    {
-      label: "Settings",
-      key: "settings",
-      icon: <SettingIcon />,
-      children: [
-        {
-          label: "Change Password",
-          key: "profile?nav=cp",
-          icon: <KeyRoundIcon />,
-        },
-      ],
-    },
+    // {
+    //   label: "Settings",
+    //   key: "settings",
+    //   icon: <SettingIcon />,
+    //   children: [
+
+    //   ],
+    // },
   ];
 
   return (

@@ -51,6 +51,7 @@ export default function Page({
         token: cookies.raven,
       });
       const user = await getUserData(cookies.raven);
+      console.log(call);
 
       setOrderForm({
         ...orderForm,
@@ -112,7 +113,7 @@ export default function Page({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="h-min rounded-xl bg-background p-4 shadow-md">
           <Image
-            src={data?.image}
+            src={data.image ? data.image : ""}
             height={1600}
             width={800}
             alt="thumbnail"
@@ -150,7 +151,7 @@ export default function Page({
             {proceed ? (
               <PaymentForm
                 id={data.id}
-                price={data.price_with_fees}
+                price={data.price_with_fees ? data.price_with_fees : data.price}
                 orderData={orderForm}
               />
             ) : (
